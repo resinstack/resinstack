@@ -1,0 +1,23 @@
+kernel:
+  image: linuxkit/kernel:4.19.90
+  cmdline: "console=tty0 console=ttyS0 console=ttyAMA0"
+init:
+  - linuxkit/init:1d8e0532ca588c5ad0d9ca6038349a70bb7ac626
+  - linuxkit/runc:c1f0db27e71d948f3134b31ce76276f843849b0a
+  - linuxkit/containerd:751de142273e1b5d2d247d2832d654ab92e907bc
+onboot:
+  - name: sysctl
+    image: linuxkit/sysctl:v0.7
+  - name: dhcpcd
+    image: linuxkit/dhcpcd:v0.7
+    command: ["/sbin/dhcpcd", "--nobackground", "-d", "-f", "/dhcpcd.conf", "-1"]
+services:
+  - name: getty
+    image: linuxkit/getty:v0.7
+    env:
+     - INSECURE=true
+  - name: consul
+    image: consul:1.6.1
+    capabilities:
+      - CAP_SETUID
+      - CAP_SETGID

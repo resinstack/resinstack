@@ -1,0 +1,4 @@
+.vagrant/
+linuxkit/
+box.img*
+*.box
