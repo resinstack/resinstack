@@ -1,4 +1,5 @@
-.vagrant/
 linuxkit/
-box.img*
-*.box
+*img*
+*-kernel
+*-cmdline
+*-state
