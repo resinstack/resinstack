@@ -3,3 +3,4 @@ linuxkit/
 *-kernel
 *-cmdline
 *-state
+*.qcow2
