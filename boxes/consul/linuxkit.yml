@@ -18,6 +18,16 @@ services:
      - INSECURE=true
   - name: consul
     image: consul:1.6.1
+    command: ["/bin/consul", "agent", "-config-dir", "/consul/config"]
     capabilities:
       - CAP_SETUID
       - CAP_SETGID
+    binds:
+      - /consul/config:/consul/config
+      - /var/run:/consul/data
+    net: host
+files:
+    - path: consul/config/server.hcl
+      source: server.hcl
+      mode: "0644"
+      optional: false

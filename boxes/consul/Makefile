@@ -1,4 +1,4 @@
-linuxkit.qcow2: linuxkit.yml
+linuxkit.qcow2: linuxkit.yml server.hcl
 	linuxkit build -format=qcow2-bios linuxkit.yml
 
 clean:
