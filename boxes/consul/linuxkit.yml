@@ -11,6 +11,11 @@ onboot:
   - name: dhcpcd
     image: linuxkit/dhcpcd:v0.7
     command: ["/sbin/dhcpcd", "--nobackground", "-d", "-f", "/dhcpcd.conf", "-1"]
+  - name: format
+    image: linuxkit/format:65b9e0a76d0b9fb8ac5c5f3bc8d3131109290f56
+  - name: mount
+    image: linuxkit/mount:v0.7
+    command: ["/usr/bin/mountie", "/var/persist"]
 services:
   - name: getty
     image: linuxkit/getty:v0.7
@@ -23,11 +28,14 @@ services:
       - CAP_SETUID
       - CAP_SETGID
     binds:
+      - /var/persist:/consul/data
       - /consul/config:/consul/config
-      - /var/run:/consul/data
     net: host
 files:
-    - path: consul/config/server.hcl
-      source: server.hcl
-      mode: "0644"
-      optional: false
+  - path: consul/config/server.hcl
+    source: server.hcl
+    mode: "0644"
+    optional: false
+  - path: var/persist
+    directory: true
+    mode: "0755"

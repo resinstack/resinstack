@@ -14,7 +14,7 @@ consul%: consul.qcow2
 	cp consul.qcow2 consul$*.qcow2
 	mkdir -p consul$*.qcow2-state
 	printf "06-00-00-00-00-0%d" $* > consul$*.qcow2-state/mac-addr
-	linuxkit run qemu -networking bridge,resin0 consul$*.qcow2
+	linuxkit run qemu -networking bridge,resin0 -disk consul$*-persist.qcow2,size=100M,format=qcow2 consul$*.qcow2
 
 consul-clean:
 	rm -rf consul*

@@ -1,4 +1,4 @@
-linuxkit.img: linuxkit.yml dnsmasq.conf
+linuxkit.qcow2: linuxkit.yml dnsmasq.conf
 	docker build -t dnsmasq .
 	linuxkit build -format qcow2-bios linuxkit.yml
 
