@@ -23,4 +23,17 @@ consul-join:
 	CONSUL_HTTP_ADDR=http://192.168.10.11:8500 consul join 192.168.10.12
 	CONSUL_HTTP_ADDR=http://192.168.10.11:8500 consul join 192.168.10.13
 
-clean: consul-clean dhcpd-clean
+vault.qcow2:
+	$(MAKE) -C ../ img/vault.qcow2
+	cp ../img/vault.qcow2 vault.qcow2
+
+vault%: vault.qcow2
+	cp vault.qcow2 vault$*.qcow2
+	mkdir -p vault$*.qcow2-state
+	printf "06-00-00-00-00-1%d" $* > vault$*.qcow2-state/mac-addr
+	linuxkit run qemu -networking bridge,resin0 -mem 1536 -disk vault1$*-persist.qcow2,size=100M,format=qcow2 vault$*.qcow2
+
+vault-clean:
+	rm -rf vault*
+
+clean: consul-clean dhcpd-clean vault-clean

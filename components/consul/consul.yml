@@ -11,7 +11,7 @@ services:
       - /consul/config:/consul/config
     net: host
 files:
-  - path: consul/config/server.hcl
-    source: components/consul/server.hcl
+  - path: consul/config/base.hcl
+    source: components/consul/base.hcl
     mode: "0644"
     optional: false
