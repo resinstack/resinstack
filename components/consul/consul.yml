@@ -1,0 +1,17 @@
+---
+services:
+  - name: consul
+    image: consul:1.6.1
+    command: ["/bin/consul", "agent", "-config-dir", "/consul/config"]
+    capabilities:
+      - CAP_SETUID
+      - CAP_SETGID
+    binds:
+      - /var/persist:/consul/data
+      - /consul/config:/consul/config
+    net: host
+files:
+  - path: consul/config/server.hcl
+    source: components/consul/server.hcl
+    mode: "0644"
+    optional: false

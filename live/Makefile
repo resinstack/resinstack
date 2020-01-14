@@ -1,14 +1,14 @@
 dhcpd:
-	$(MAKE) -C ../boxes/dhcpd
-	cp ../boxes/dhcpd/linuxkit.qcow2 dhcpd.qcow2
+	$(MAKE) -C ../ img/dhcpd.qcow2
+	cp ../img/dhcpd.qcow2 dhcpd.qcow2
 	linuxkit run qemu -networking bridge,resin0 dhcpd.qcow2
 
 dhcpd-clean:
 	rm -rf dhcpd*
 
 consul.qcow2:
-	$(MAKE) -C ../boxes/consul
-	cp ../boxes/consul/linuxkit.qcow2 consul.qcow2
+	$(MAKE) -C ../ img/consul.qcow2
+	cp ../img/consul.qcow2 consul.qcow2
 
 consul%: consul.qcow2
 	cp consul.qcow2 consul$*.qcow2

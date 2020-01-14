@@ -1,0 +1,19 @@
+onboot:
+  - name: ip
+    image: linuxkit/ip:7b1cf3150bf5d9a0df7ef07572e2d81fe3c0c3d3
+    binds:
+      - /etc/ip:/etc/ip
+    command: ["ip", "-b", "/etc/ip/eth0.conf"]
+services:
+  - name: dnsmasq
+    image: dnsmasq
+    net: host
+    binds:
+      - /var/log:/var/log
+    capabilities:
+      - all
+files:
+  - path: etc/ip/eth0.conf
+    contents: |
+      address add 192.168.10.1/24 dev eth0
+      link set eth0 up

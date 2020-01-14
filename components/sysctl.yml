@@ -1,0 +1,4 @@
+---
+onboot:
+  - name: sysctl
+    image: linuxkit/sysctl:v0.7
