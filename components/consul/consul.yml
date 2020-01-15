@@ -2,13 +2,14 @@
 services:
   - name: consul
     image: consul:1.6.1
-    command: ["/bin/consul", "agent", "-config-dir", "/consul/config"]
+    command: ["/bin/consul", "agent", "-config-dir", "/consul/config", "-config-dir", "/consul/dynconfig"]
     capabilities:
       - CAP_SETUID
       - CAP_SETGID
     binds:
       - /var/persist:/consul/data
       - /consul/config:/consul/config
+      - /var/run/config/consul:/consul/dynconfig
     net: host
 files:
   - path: consul/config/base.hcl

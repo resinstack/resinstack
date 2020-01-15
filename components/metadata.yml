@@ -1,0 +1,4 @@
+---
+onboot:
+  - name: metadata
+    image: linuxkit/metadata:2dade7485ac60c765b16a34a42afc6431da938cf

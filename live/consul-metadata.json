@@ -1,0 +1,1 @@
+{"consul":{"entries":{"dc.hcl":{"content":"datacenter = \"resin0\"\n"},"dynamic.hcl":{"content":"retry_join = [\"192.168.10.11\"]\n"}}}}

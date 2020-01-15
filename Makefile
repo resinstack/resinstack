@@ -1,4 +1,4 @@
-BASE = components/kernel.yml components/sysctl.yml $(DEBUG)
+BASE = components/kernel.yml components/sysctl.yml components/metadata.yml $(DEBUG)
 DEBUG = components/getty.yml
 PERSIST = components/persist-disk.yml
 DHCP = components/dhcp.yml
