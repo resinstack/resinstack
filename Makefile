@@ -15,6 +15,9 @@ DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf
 VAULT_SERVER = $(BASE) $(PERSIST) $(DHCP) components/vault/vault.yml
 VAULT_SERVER_FILES = $(VAULT_SERVER) components/vault/server.hcl
 
+NOMAD_SERVER = $(BASE) $(PERSIST) $(DHCP) components/nomad/nomad.yml
+NOMAD_SERVER_FILES = $(NOMAD_SERVER)
+
 img:
 	mkdir -p img/
 
@@ -27,6 +30,9 @@ img/dhcpd.qcow2: img $(DHCP_SERVER_FILES)
 
 img/vault.qcow2: img $(VAULT_SERVER_FILES) $(CONSUL_CLIENT_FILES)
 	linuxkit build -format qcow2-bios -name vault -dir img/ $(VAULT_SERVER) $(CONSUL_CLIENT)
+
+img/nomad.qcow2: img $(NOMAD_SERVER_FILES) $(CONSUL_CLIENT_FILES)
+	linuxkit build -format qcow2-bios -name nomad -dir img/ $(NOMAD_SERVER) $(CONSUL_CLIENT)
 
 local-img: img/consul.qcow2 img/dhcpd.qcow2
 

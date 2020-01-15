@@ -1,0 +1,17 @@
+---
+services:
+  - name: nomad
+    image: nomad:0.10.2
+    command: ["/bin/nomad", "agent", "-config", "/nomad/config/", "-config", "/nomad/dynconfig/"]
+    binds:
+      - /var/persist:/var/persist
+      - /nomad/config:/nomad/config
+      - /var/run/config/nomad:/nomad/dynconfig
+    net: host
+files:
+  - path: nomad/config
+    directory: true
+    mode: "0755"
+  - path: var/persist/nomad
+    directory: true
+    mode: "0755"

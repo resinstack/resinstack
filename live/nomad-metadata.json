@@ -1,0 +1,1 @@
+{"consul":{"entries":{"dynamic.hcl":{"content":"datacenter = \"resin0\"\nretry_join = [\"192.168.10.11\"]\n"}}},"nomad":{"entries":{"server.hcl":{"content":"datacenter = \"RESIN0\"\ndata_dir = \"/var/persist/nomad\"\nlog_level = \"TRACE\"\n\nserver {\n  enabled = true\n  bootstrap_expect = 1\n}\n\nclient {\n  enabled = true\n}\n"}}}}

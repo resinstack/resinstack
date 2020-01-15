@@ -44,4 +44,20 @@ vault%: vault.qcow2 vault-metadata.json
 vault-clean:
 	rm -rf vault*
 
+nomad.qcow2:
+	$(MAKE) -C ../ img/nomad.qcow2
+	cp ../img/nomad.qcow2 nomad.qcow2
+
+nomad-metadata.json:
+	$(MD_PACKER) --base metadata/nomad-server/ --out nomad-metadata.json
+
+nomad%: nomad.qcow2 nomad-metadata.json
+	cp nomad.qcow2 nomad$*.qcow2
+	mkdir -p nomad$*.qcow2-state
+	printf "06-00-00-00-00-2%d" $* > nomad$*.qcow2-state/mac-addr
+	linuxkit run qemu -networking bridge,resin0 -mem 1536 -disk nomad1$*-persist.qcow2,size=100M,format=qcow2 -data-file nomad-metadata.json nomad$*.qcow2
+
+nomad-clean:
+	rm -rf nomad*
+
 clean: consul-clean dhcpd-clean vault-clean
