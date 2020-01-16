@@ -15,7 +15,7 @@ DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf
 VAULT_SERVER = $(BASE) $(PERSIST) $(DHCP) components/vault/vault.yml
 VAULT_SERVER_FILES = $(VAULT_SERVER) components/vault/server.hcl
 
-NOMAD_SERVER = $(BASE) $(PERSIST) $(DHCP) components/nomad/nomad.yml
+NOMAD_SERVER = $(BASE) $(PERSIST) $(DHCP) components/nomad/nomad.yml components/docker.yml
 NOMAD_SERVER_FILES = $(NOMAD_SERVER)
 
 img:

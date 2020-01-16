@@ -2,11 +2,15 @@
 services:
   - name: nomad
     image: nomad:0.10.2
+    capabilities:
+      - CAP_CHOWN
+      - CAP_SYS_ADMIN
     command: ["/bin/nomad", "agent", "-config", "/nomad/config/", "-config", "/nomad/dynconfig/"]
     binds:
       - /var/persist:/var/persist
       - /nomad/config:/nomad/config
       - /var/run/config/nomad:/nomad/dynconfig
+      - /var/run:/var/run
     net: host
 files:
   - path: nomad/config
