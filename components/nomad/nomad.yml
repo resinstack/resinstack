@@ -12,7 +12,13 @@ services:
       - /var/run/config/nomad:/nomad/dynconfig
       - /var/run:/var/run
     net: host
+    runtime:
+      mkdir: ["/nomad/config", "/var/run/config/nomad", "/var/persist/nomad"]
 files:
+  - path: nomad/config/base.hcl
+    source: components/nomad/base.hcl
+    mode: "0644"
+    optional: false
   - path: nomad/config
     directory: true
     mode: "0755"

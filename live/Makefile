@@ -1,7 +1,7 @@
 MD_PACKER = go run ../tools/metadata-packer/main.go
 
 dhcpd:
-	$(MAKE) -C ../ img/dhcpd.qcow2
+	$(MAKE) -C ../ img/dhcpd.qcow2 ENABLE_GETTY=1
 	cp ../img/dhcpd.qcow2 dhcpd.qcow2
 	linuxkit run qemu -networking bridge,resin0 dhcpd.qcow2
 
@@ -19,7 +19,7 @@ consul%: consul.qcow2 consul-metadata.json
 	cp consul.qcow2 consul$*.qcow2
 	mkdir -p consul$*.qcow2-state
 	printf "06-00-00-00-00-0%d" $* > consul$*.qcow2-state/mac-addr
-	linuxkit run qemu -networking bridge,resin0 -disk consul$*-persist.qcow2,size=100M,format=qcow2 -data-file consul-metadata.json consul$*.qcow2
+	linuxkit run qemu -networking bridge,resin0 -mem 1536 -disk consul$*-persist.qcow2,size=100M,format=qcow2 -data-file consul-metadata.json consul$*.qcow2
 
 consul-clean:
 	rm -rf consul*
