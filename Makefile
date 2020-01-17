@@ -69,7 +69,10 @@ img/vault.qcow2: img $(VAULT_SERVER_FILES) $(CONSUL_CLIENT_FILES)
 img/nomad.qcow2: img $(NOMAD_SERVER_FILES) $(CONSUL_CLIENT_FILES)
 	linuxkit build -format qcow2-bios -name nomad -dir img/ $(shell echo $(NOMAD_SERVER) $(CONSUL_CLIENT) $(DEDUP))
 
-local-img: img/consul.qcow2 img/dhcpd.qcow2
+img/nomad-client.qcow2: img $(NOMAD_CLIENT_FILES) $(CONSUL_CLIENT_FILES)
+	linuxkit build -format qcow2-bios -name nomad-client -dir img/ $(shell echo $(NOMAD_CLIENT) $(CONSUL_CLIENT) $(DEDUP))
+
+local-img: img/consul.qcow2 img/dhcpd.qcow2 img/nomad.qcow2 img/nomad-client.qcow2
 
 clean:
 	rm -rf img/ linuxkit/
