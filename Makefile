@@ -1,7 +1,8 @@
-BASE = components/kernel.yml components/sysctl.yml components/metadata.yml $(DEBUG)
-DEBUG = components/getty.yml
+BASE = components/kernel.yml components/sysctl.yml components/metadata.yml
+GETTY = components/getty.yml
 PERSIST = components/persist-disk.yml
 DHCP = components/dhcp.yml
+SSHD = components/sshd.yml
 
 CONSUL_SERVER = $(BASE) $(PERSIST) $(DHCP) components/consul/consul.yml components/consul/server.yml
 CONSUL_SERVER_FILES = $(CONSUL_SERVER) components/consul/base.hcl components/consul/server.hcl
@@ -17,6 +18,18 @@ VAULT_SERVER_FILES = $(VAULT_SERVER) components/vault/server.hcl
 
 NOMAD_SERVER = $(BASE) $(PERSIST) $(DHCP) components/nomad/nomad.yml components/docker.yml
 NOMAD_SERVER_FILES = $(NOMAD_SERVER)
+
+# Only enable if explicitly asked for, since it will present a root
+# shell on the console with no authentication.
+ifdef ENABLE_GETTY
+	BASE += $(GETTY)
+endif
+
+# Only enable sshd if asked for.  These boxes are immutable, so why
+# are you sshing into them?
+ifdef ENABLE_SSHD
+	BASE += $(SSHD)
+endif
 
 img:
 	mkdir -p img/

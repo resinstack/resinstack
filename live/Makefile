@@ -9,7 +9,7 @@ dhcpd-clean:
 	rm -rf dhcpd*
 
 consul.qcow2:
-	$(MAKE) -C ../ img/consul.qcow2
+	$(MAKE) -C ../ img/consul.qcow2 ENABLE_GETTY=1
 	cp ../img/consul.qcow2 consul.qcow2
 
 consul-metadata.json:
@@ -29,7 +29,7 @@ consul-join:
 	CONSUL_HTTP_ADDR=http://192.168.10.11:8500 consul join 192.168.10.13
 
 vault.qcow2:
-	$(MAKE) -C ../ img/vault.qcow2
+	$(MAKE) -C ../ img/vault.qcow2 ENABLE_GETTY=1
 	cp ../img/vault.qcow2 vault.qcow2
 
 vault-metadata.json:
@@ -45,7 +45,7 @@ vault-clean:
 	rm -rf vault*
 
 nomad.qcow2:
-	$(MAKE) -C ../ img/nomad.qcow2
+	$(MAKE) -C ../ img/nomad.qcow2 ENABLE_GETTY=1
 	cp ../img/nomad.qcow2 nomad.qcow2
 
 nomad-metadata.json:
