@@ -53,6 +53,10 @@ endif
 # filename.
 DEDUP = | tr ' ' '\n' | awk '!x[$$0]++' | tr '\n' ' '
 
+# If running on AWS you need to set the bucket to upload to for
+# staging.
+AWS_BUCKET ?= linuxkit-import
+
 img:
 	mkdir -p img/
 
@@ -75,7 +79,18 @@ img/nomad-client.qcow2: img $(NOMAD_CLIENT_FILES) $(CONSUL_CLIENT_FILES)
 img/aio.qcow2: img $(NOMAD_SERVER_FILES) $(CONSUL_SERVER_FILES) $(VAULT_SERVER_FILES)
 	linuxkit build -format qcow2-bios -name aio -dir img/ $(shell echo $(NOMAD_SERVER) $(CONSUL_SERVER) $(VAULT_SERVER) $(DEDUP))
 
+aws:
+	mkdir -p aws/
+
+aws/aio.raw: aws $(NOMAD_SERVER_FILES) $(CONSUL_SERVER_FILES) $(VAULT_SERVER_FILES)
+	linuxkit build -format aws -name aio -dir aws/ $(shell echo $(NOMAD_SERVER) $(CONSUL_SERVER) $(VAULT_SERVER) $(DEDUP))
+
+aws/aio-push: aws/aio.raw
+	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name resinstack-aio aws/aio.raw
+
 local-img: img/consul.qcow2 img/dhcpd.qcow2 img/nomad.qcow2 img/nomad-client.qcow2
 
 clean:
-	rm -rf img/ linuxkit/
+	rm -rf img/ aws/ linuxkit/
+
+.PHONY: clean aws/awio-push
