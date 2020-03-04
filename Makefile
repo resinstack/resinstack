@@ -1,26 +1,25 @@
-BASE = components/kernel.yml components/sysctl.yml components/metadata.yml
+BASE = components/kernel.yml components/sysctl.yml components/dhcp.yml components/metadata.yml
 GETTY = components/getty.yml
 PERSIST = components/persist-disk.yml
-DHCP = components/dhcp.yml
 SSHD = components/sshd.yml
 DOCKER = components/docker.yml
 
-CONSUL_SERVER = $(BASE) $(PERSIST) $(DHCP) components/consul/consul.yml components/consul/server.yml
+CONSUL_SERVER = $(BASE) $(PERSIST) components/consul/consul.yml components/consul/server.yml
 CONSUL_SERVER_FILES = $(CONSUL_SERVER) components/consul/base.hcl components/consul/server.hcl
 
 CONSUL_CLIENT = components/consul/consul.yml
 CONSUL_CLIENT_FILES = $(CONSUL_CLIENT) components/consul/base.hcl
 
-DHCP_SERVER = $(BASE) components/dhcpd/dhcpd.yml
+DHCP_SERVER = components/kernel.yml components/syctl.yml components/dhcpd/dhcpd.yml
 DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf
 
-VAULT_SERVER = $(BASE) $(PERSIST) $(DHCP) components/vault/vault.yml
+VAULT_SERVER = $(BASE) $(PERSIST) components/vault/vault.yml
 VAULT_SERVER_FILES = $(VAULT_SERVER) components/vault/server.hcl
 
-NOMAD_SERVER = $(BASE) $(PERSIST) $(DHCP) $(DOCKER) components/nomad/nomad.yml components/nomad/server.yml
+NOMAD_SERVER = $(BASE) $(PERSIST) $(DOCKER) components/nomad/nomad.yml components/nomad/server.yml
 NOMAD_SERVER_FILES = $(NOMAD_SERVER) components/nomad/server.hcl
 
-NOMAD_CLIENT = $(BASE) $(PERSIST) $(DHCP) $(DOCKER) components/nomad/nomad.yml components/nomad/client.yml
+NOMAD_CLIENT = $(BASE) $(PERSIST) $(DOCKER) components/nomad/nomad.yml components/nomad/client.yml
 NOMAD_CLIENT_FILES = $(NOMAD_CLIENT) components/nomad/client.hcl
 
 # Only enable if explicitly asked for, since it will present a root
@@ -56,6 +55,7 @@ DEDUP = | tr ' ' '\n' | awk '!x[$$0]++' | tr '\n' ' '
 # If running on AWS you need to set the bucket to upload to for
 # staging.
 AWS_BUCKET ?= linuxkit-import
+AWS_AMI_NAME ?= resinstack-aio
 
 img:
 	mkdir -p img/
@@ -86,7 +86,7 @@ aws/aio.raw: aws $(NOMAD_SERVER_FILES) $(CONSUL_SERVER_FILES) $(VAULT_SERVER_FIL
 	linuxkit build -format aws -name aio -dir aws/ $(shell echo $(NOMAD_SERVER) $(CONSUL_SERVER) $(VAULT_SERVER) $(DEDUP))
 
 aws/aio-push: aws/aio.raw
-	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name resinstack-aio aws/aio.raw
+	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name $(AWS_AMI_NAME) aws/aio.raw
 
 local-img: img/consul.qcow2 img/dhcpd.qcow2 img/nomad.qcow2 img/nomad-client.qcow2
 
