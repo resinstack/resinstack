@@ -9,6 +9,7 @@ services:
     binds:
       - /vault/config:/vault/config
       - /var/run/config/vault:/vault/dynconfig
+      - /etc/resolv.conf:/etc/resolv.conf
 files:
   - path: vault/config/server.hcl
     source: components/vault/server.hcl

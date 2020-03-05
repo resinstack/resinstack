@@ -10,6 +10,7 @@ services:
       - /var/persist:/consul/data
       - /consul/config:/consul/config
       - /var/run/config/consul:/consul/dynconfig
+      - /etc/resolv.conf:/etc/resolv.conf
     net: host
 files:
   - path: consul/config/base.hcl

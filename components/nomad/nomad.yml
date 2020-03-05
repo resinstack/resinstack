@@ -11,6 +11,7 @@ services:
       - /nomad/config:/nomad/config
       - /var/run/config/nomad:/nomad/dynconfig
       - /var/run:/var/run
+      - /etc/resolv.conf:/etc/resolv.conf
     net: host
     runtime:
       mkdir: ["/nomad/config", "/var/run/config/nomad", "/var/persist/nomad"]
