@@ -55,7 +55,7 @@ DEDUP = | tr ' ' '\n' | awk '!x[$$0]++' | tr '\n' ' '
 # If running on AWS you need to set the bucket to upload to for
 # staging.
 AWS_BUCKET ?= linuxkit-import
-AWS_AMI_NAME ?= resinstack-aio
+AWS_AMI_NAME ?= resinstack
 
 img:
 	mkdir -p img/
@@ -87,6 +87,12 @@ aws/aio.raw: aws $(NOMAD_SERVER_FILES) $(CONSUL_SERVER_FILES) $(VAULT_SERVER_FIL
 
 aws/aio-push: aws/aio.raw
 	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name $(AWS_AMI_NAME) aws/aio.raw
+
+aws/nomad-client.raw: img $(NOMAD_CLIENT_FILES) $(CONSUL_CLIENT_FILES)
+	linuxkit build -format aws -name nomad-client -dir aws/ $(shell echo $(NOMAD_CLIENT) $(CONSUL_CLIENT) $(DEDUP))
+
+aws/nomad-client-push: aws/nomad-client.raw
+	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name $(AWS_AMI_NAME) aws/nomad-client.raw
 
 local-img: img/consul.qcow2 img/dhcpd.qcow2 img/nomad.qcow2 img/nomad-client.qcow2
 
