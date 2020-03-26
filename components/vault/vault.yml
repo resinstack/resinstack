@@ -1,17 +1,20 @@
 services:
   - name: vault
-    image: vault:1.3.1
-    command: ["/bin/vault", "server", "-config", "/vault/config/server.hcl", "-config", "/vault/dynconfig"]
+    image: vault:1.3.4
+    command: ["/bin/vault", "server", "-config", "/etc/vault", "-config", "/var/run/config/vault"]
     capabilities:
       - CAP_SETUID
       - CAP_SETGID
       - CAP_IPC_LOCK
     binds:
-      - /vault/config:/vault/config
-      - /var/run/config/vault:/vault/dynconfig
+      - /etc/vault:/etc/vault
+      - /var/run/config/vault:/var/run/config/vault
       - /etc/resolv.conf:/etc/resolv.conf
+    runtime:
+      mkdir:
+        - /var/run/config/vault
 files:
-  - path: vault/config/server.hcl
+  - path: etc/vault/server.hcl
     source: components/vault/server.hcl
     mode: "0644"
     optional: false
