@@ -1,28 +1,23 @@
 ---
 services:
   - name: nomad
-    image: nomad:0.10.2
+    image: nomad:0.10.5
     capabilities:
       - CAP_CHOWN
       - CAP_SYS_ADMIN
-    command: ["/bin/nomad", "agent", "-config", "/nomad/config/", "-config", "/nomad/dynconfig/"]
+    command: ["/bin/nomad", "agent", "-config", "/etc/nomad", "-config", "/var/run/config/nomad"]
     binds:
-      - /var/persist:/var/persist
-      - /nomad/config:/nomad/config
-      - /var/run/config/nomad:/nomad/dynconfig
-      - /var/run:/var/run
+      - /etc/nomad:/etc/nomad
       - /etc/resolv.conf:/etc/resolv.conf
+      - /var/persist:/var/persist
+      - /var/run:/var/run
     net: host
     runtime:
-      mkdir: ["/nomad/config", "/var/run/config/nomad", "/var/persist/nomad"]
+      mkdir:
+        - /var/run/config/nomad
+        - /var/persist/nomad
 files:
-  - path: nomad/config/base.hcl
+  - path: etc/nomad/base.hcl
     source: components/nomad/base.hcl
     mode: "0644"
     optional: false
-  - path: nomad/config
-    directory: true
-    mode: "0755"
-  - path: var/persist/nomad
-    directory: true
-    mode: "0755"
