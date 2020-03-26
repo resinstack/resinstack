@@ -5,7 +5,6 @@ onboot:
   - name: mount
     image: linuxkit/mount:v0.7
     command: ["/usr/bin/mountie", "/var/persist"]
-files:
-  - path: var/persist
-    directory: true
-    mode: "0755"
+    runtime:
+      mkdir:
+        - var/persist
