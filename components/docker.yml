@@ -1,7 +1,7 @@
 ---
 services:
   - name: docker
-    image: docker:18.06.0-ce-dind
+    image: docker:19.03.8-dind
     capabilities:
      - all
     net: host
@@ -17,9 +17,9 @@ services:
      - /var/run:/var/run
     command: ["/usr/local/bin/docker-init", "/usr/local/bin/dockerd"]
     runtime:
-      mkdir: ["/var/lib/docker", "/var/persist/docker"]
+      mkdir:
+        - /var/lib/docker
+        - /var/persist/docker
 files:
-  - path: var/lib/docker
-    directory: true
   - path: etc/docker/daemon.json
     contents: '{"debug": true}'
