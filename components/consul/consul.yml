@@ -8,7 +8,7 @@ services:
       - CAP_SETGID
     binds:
       - /etc/consul:/etc/consul
-      - /etc/resolv.conf:/etc/resolv.conf
+      - /run/resolvconf/resolv.conf:/etc/resolv.conf
       - /var/persist:/var/persist
       - /var/run/config/consul:/var/run/config/consul
     net: host

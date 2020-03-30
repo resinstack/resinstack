@@ -4,11 +4,14 @@ PERSIST = components/persist-disk.yml
 SSHD = components/sshd.yml
 DOCKER = components/docker.yml
 
-CONSUL_SERVER = $(BASE) $(PERSIST) components/consul/consul.yml components/consul/server.yml
-CONSUL_SERVER_FILES = $(CONSUL_SERVER) components/consul/base.hcl components/consul/server.hcl
+CDNS = components/coredns/coredns.yml
+CDNS_FILES = components/coredns/Corefile components/coredns/resolv.cluster
 
-CONSUL_CLIENT = components/consul/consul.yml
-CONSUL_CLIENT_FILES = $(CONSUL_CLIENT) components/consul/base.hcl
+CONSUL_SERVER = $(BASE) $(PERSIST) $(CDNS) components/consul/consul.yml components/consul/server.yml
+CONSUL_SERVER_FILES = $(CONSUL_SERVER) $(CDNS_FILES) components/consul/base.hcl components/consul/server.hcl
+
+CONSUL_CLIENT = $(CDNS) components/consul/consul.yml
+CONSUL_CLIENT_FILES = $(CONSUL_CLIENT) $(CDNS_FILES) components/consul/base.hcl
 
 DHCP_SERVER = components/kernel.yml components/syctl.yml components/dhcpd/dhcpd.yml
 DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf

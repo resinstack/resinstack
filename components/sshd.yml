@@ -4,3 +4,4 @@ services:
     image: linuxkit/sshd:v0.7
     binds:
       - /run/config/ssh/authorized_keys:/root/.ssh/authorized_keys
+      - /etc/resolv.cluster:/etc/resolv.conf

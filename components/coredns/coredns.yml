@@ -1,0 +1,18 @@
+---
+services:
+  - name: coredns
+    image: coredns/coredns:1.6.9
+    capabilities:
+      - CAP_NET_BIND_SERVICE
+    binds:
+      - /etc/coredns/Corefile:/Corefile
+      - /run/resolvconf/resolv.conf:/etc/resolv.conf
+files:
+  - path: etc/coredns/Corefile
+    source: components/coredns/Corefile
+    mode: "0644"
+    optional: false
+  - path: etc/resolv.cluster
+    source: components/coredns/resolv.cluster
+    mode: "0644"
+    optional: false

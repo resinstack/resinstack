@@ -9,7 +9,7 @@ services:
     binds:
       - /etc/vault:/etc/vault
       - /var/run/config/vault:/var/run/config/vault
-      - /etc/resolv.conf:/etc/resolv.conf
+      - /etc/resolv.cluster:/etc/resolv.conf
     runtime:
       mkdir:
         - /var/run/config/vault

@@ -8,10 +8,9 @@ services:
     command: ["/bin/nomad", "agent", "-config", "/etc/nomad", "-config", "/var/run/config/nomad"]
     binds:
       - /etc/nomad:/etc/nomad
-      - /etc/resolv.conf:/etc/resolv.conf
+      - /etc/resolv.cluster:/etc/resolv.conf
       - /var/persist:/var/persist
       - /var/run:/var/run
-    net: host
     runtime:
       mkdir:
         - /var/run/config/nomad

@@ -1,0 +1,7 @@
+. {
+  forward . /etc/resolv.conf
+}
+
+consul {
+  forward . dns://127.0.0.1:8600
+}
