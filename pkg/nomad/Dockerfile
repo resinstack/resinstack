@@ -4,7 +4,7 @@ RUN apk add gcc linux-headers musl-dev && \
         mkdir -p src/github.com/hashicorp && \
         mkdir -p /nomad/config /nomad/dynconfig && \
         cd src/github.com/hashicorp && \
-        wget https://github.com/hashicorp/nomad/archive/v0.10.5.tar.gz && \
+        wget https://github.com/hashicorp/nomad/archive/v0.11.0.tar.gz && \
         mkdir nomad && \
         tar -xzf *.tar.gz --strip-components=1 -C nomad/ && \
         cd nomad && \
