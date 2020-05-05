@@ -1,0 +1,12 @@
+---
+services:
+  - name: emissary
+    image: maldridge/emissary:v0.1.0
+    capabilities:
+      - CAP_SYS_ADMIN
+    binds:
+      - /containers:/containers
+      - /run:/run
+      - /usr/bin/service:/usr/bin/service
+    env:
+      - EMISSARY_TPL_DIR=/run/config/emissary/

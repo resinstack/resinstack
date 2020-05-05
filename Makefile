@@ -1,4 +1,4 @@
-BASE = components/kernel.yml components/sysctl.yml components/dhcp.yml components/metadata.yml
+BASE = components/kernel.yml components/sysctl.yml components/dhcp.yml components/metadata.yml components/emissary.yml
 GETTY = components/getty.yml
 PERSIST = components/persist-disk.yml
 SSHD = components/sshd.yml
