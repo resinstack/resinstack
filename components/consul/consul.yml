@@ -11,7 +11,6 @@ services:
       - /run/resolvconf/resolv.conf:/etc/resolv.conf
       - /var/persist:/var/persist
       - /var/run/config/consul:/var/run/config/consul
-    net: host
     runtime:
       mkdir:
         - /var/persist/consul
