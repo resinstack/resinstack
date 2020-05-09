@@ -7,6 +7,7 @@ services:
     binds:
       - /containers:/containers
       - /run:/run
+      - /run/resolvconf/resolv.conf:/etc/resolv.conf
       - /usr/bin/service:/usr/bin/service
     env:
       - EMISSARY_TPL_DIR=/run/config/emissary/
