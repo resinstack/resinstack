@@ -1,0 +1,4 @@
+---
+services:
+  - name: acpid
+    image: linuxkit/acpid:v0.8
