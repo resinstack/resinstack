@@ -91,7 +91,7 @@ aws/aio.raw: aws $(NOMAD_SERVER_FILES) $(CONSUL_SERVER_FILES) $(VAULT_SERVER_FIL
 aws/aio-push: aws/aio.raw
 	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name $(AWS_AMI_NAME) aws/aio.raw
 
-aws/nomad-client.raw: img $(NOMAD_CLIENT_FILES) $(CONSUL_CLIENT_FILES)
+aws/nomad-client.raw: aws $(NOMAD_CLIENT_FILES) $(CONSUL_CLIENT_FILES)
 	linuxkit build -format aws -name nomad-client -dir aws/ $(shell echo $(NOMAD_CLIENT) $(CONSUL_CLIENT) $(DEDUP))
 
 aws/nomad-client-push: aws/nomad-client.raw
