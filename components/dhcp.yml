@@ -1,5 +1,5 @@
 ---
 onboot:
   - name: dhcpcd
-    image: linuxkit/dhcpcd:v0.7
+    image: linuxkit/dhcpcd:v0.8
     command: ["/sbin/dhcpcd", "--nobackground", "-d", "-f", "/dhcpcd.conf", "-1"]

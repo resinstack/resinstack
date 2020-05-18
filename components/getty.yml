@@ -1,6 +1,6 @@
 ---
 services:
   - name: getty
-    image: linuxkit/getty:v0.7
+    image: linuxkit/getty:v0.8
     env:
      - INSECURE=true
