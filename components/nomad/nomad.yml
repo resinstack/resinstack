@@ -16,7 +16,7 @@ services:
         - /var/run/config/nomad
         - /var/persist/nomad
 files:
-  - path: etc/nomad/base.hcl
-    source: components/nomad/base.hcl
+  - path: etc/nomad/25-base.hcl
+    source: components/nomad/25-base.hcl
     mode: "0644"
     optional: false

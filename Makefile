@@ -20,10 +20,10 @@ VAULT_SERVER = $(BASE) $(PERSIST) components/vault/vault.yml
 VAULT_SERVER_FILES = $(VAULT_SERVER) components/vault/server.hcl
 
 NOMAD_SERVER = $(BASE) $(PERSIST) $(DOCKER) components/nomad/nomad.yml components/nomad/server.yml
-NOMAD_SERVER_FILES = $(NOMAD_SERVER) components/nomad/server.hcl
+NOMAD_SERVER_FILES = $(NOMAD_SERVER) components/nomad/25-base.hcl components/nomad/40-server.hcl
 
 NOMAD_CLIENT = $(BASE) $(PERSIST) $(DOCKER) components/nomad/nomad.yml components/nomad/client.yml
-NOMAD_CLIENT_FILES = $(NOMAD_CLIENT) components/nomad/client.hcl
+NOMAD_CLIENT_FILES = $(NOMAD_CLIENT) components/nomad/25-base.hcl components/nomad/40-client.hcl
 
 # Only enable if explicitly asked for, since it will present a root
 # shell on the console with no authentication.

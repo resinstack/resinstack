@@ -1,6 +1,6 @@
 ---
 files:
-  - path: etc/nomad/server.hcl
-    source: components/nomad/server.hcl
+  - path: etc/nomad/40-server.hcl
+    source: components/nomad/40-server.hcl
     mode: "0644"
     optional: false
