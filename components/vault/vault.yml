@@ -14,7 +14,7 @@ services:
       mkdir:
         - /var/run/config/vault
 files:
-  - path: etc/vault/server.hcl
-    source: components/vault/server.hcl
+  - path: etc/vault/40-server.hcl
+    source: components/vault/40-server.hcl
     mode: "0644"
     optional: false
