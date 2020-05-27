@@ -16,7 +16,7 @@ services:
         - /var/persist/consul
         - /var/run/config/consul
 files:
-  - path: etc/consul/base.hcl
-    source: components/consul/base.hcl
+  - path: etc/consul/25-base.hcl
+    source: components/consul/25-base.hcl
     mode: "0644"
     optional: false

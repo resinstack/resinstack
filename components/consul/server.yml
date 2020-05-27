@@ -1,5 +1,5 @@
 files:
-  - path: etc/consul/server.hcl
-    source: components/consul/server.hcl
+  - path: etc/consul/40-server.hcl
+    source: components/consul/40-server.hcl
     mode: "0644"
     optional: false
