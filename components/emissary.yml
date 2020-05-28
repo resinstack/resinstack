@@ -1,7 +1,7 @@
 ---
 services:
   - name: emissary
-    image: maldridge/emissary:v0.1.0
+    image: resinstack/emissary:v0.1.0
     capabilities:
       - CAP_SYS_ADMIN
     binds:
