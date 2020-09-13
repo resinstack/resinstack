@@ -1,7 +1,7 @@
 ---
 services:
   - name: nomad
-    image: nomad:0.11.0
+    image: nomad:0.12.4
     capabilities:
       - CAP_CHOWN
       - CAP_SYS_ADMIN
