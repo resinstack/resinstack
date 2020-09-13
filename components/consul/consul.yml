@@ -1,7 +1,7 @@
 ---
 services:
   - name: consul
-    image: consul:1.7.2
+    image: consul:1.8.4
     command: ["/bin/consul", "agent", "-config-dir", "/etc/consul/", "-config-dir", "/var/run/config/consul/"]
     capabilities:
       - CAP_SETUID
