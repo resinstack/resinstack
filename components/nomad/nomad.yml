@@ -4,6 +4,7 @@ services:
     image: ghcr.io/resinstack/nomad:v1.0.0r1
     capabilities:
       - CAP_CHOWN
+      - CAP_NET_ADMIN
       - CAP_SYS_ADMIN
     command: ["/nomad", "agent", "-config", "/etc/nomad", "-config", "/var/run/config/nomad"]
     binds:
@@ -11,7 +12,7 @@ services:
       - /etc/resolv.cluster:/etc/resolv.conf
       - /lib/modules:/lib/modules
       - /var/persist:/var/persist
-      - /var/run:/var/run
+      - /run:/run:shared
     runtime:
       mkdir:
         - /var/run/config/nomad

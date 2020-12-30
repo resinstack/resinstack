@@ -95,7 +95,7 @@ aws/nomad-client.raw: aws $(NOMAD_CLIENT_FILES) $(CONSUL_CLIENT_FILES)
 	linuxkit build -format aws -name nomad-client -dir aws/ $(shell echo $(NOMAD_CLIENT) $(CONSUL_CLIENT) $(DEDUP))
 
 aws/nomad-client-push: aws/nomad-client.raw
-	linuxkit push aws -bucket $(AWS_BUCKET) -timeout 1200 -img-name $(AWS_AMI_NAME) aws/nomad-client.raw
+	linuxkit push aws -ena -bucket $(AWS_BUCKET) -timeout 1200 -img-name $(AWS_AMI_NAME) aws/nomad-client.raw
 
 local-img: img/consul.qcow2 img/dhcpd.qcow2 img/nomad.qcow2 img/nomad-client.qcow2
 

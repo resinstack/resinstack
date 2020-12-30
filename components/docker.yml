@@ -12,7 +12,8 @@ services:
      - /etc/resolv.cluster:/etc/resolv.conf
      - /lib/modules:/lib/modules
      - /var/persist:/var/persist
-     - /var/run:/var/run
+     - /run:/run:shared
+    rootfsPropagation: shared
     command: ["/usr/local/bin/docker-init", "/usr/local/bin/dockerd"]
     runtime:
       mkdir:
@@ -20,4 +21,4 @@ services:
         - /var/persist/docker
 files:
   - path: etc/docker/daemon.json
-    contents: '{"dns":["172.17.0.1"],"data-root":"/var/persist/docker"}'
+    contents: '{"dns":["172.26.64.1"],"data-root":"/var/persist/docker","iptables":false,"bridge":"none"}'

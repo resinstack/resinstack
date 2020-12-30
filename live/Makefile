@@ -77,14 +77,14 @@ nomad-client-clean:
 	rm -rf nomad-client*
 
 aio.qcow2:
-	$(MAKE) -C ../ img/aio.qcow2 ENABLE_GETTY=1
+	$(MAKE) -C ../ img/aio.qcow2 ENABLE_GETTY=1 ENABLE_CONTROL_NOMAD=1
 	cp ../img/aio.qcow2 aio.qcow2
 
 aio-metadata.json:
 	$(MD_PACKER) --base metadata/aio/ --out aio-metadata.json
 
 aio: aio.qcow2 aio-metadata.json
-	linuxkit run qemu -publish 8500:8500 -publish 4646:4646 -publish 8200:8200 -mem 3000 -disk aio-persist.qcow2,size=200M,format=qcow2 -data-file aio-metadata.json aio.qcow2
+	linuxkit run qemu -publish 8500:8500 -publish 4646:4646 -publish 8200:8200 -publish 8000:8000 -mem 3000 -disk aio-persist.qcow2,size=200M,format=qcow2 -data-file aio-metadata.json aio.qcow2
 
 aio-clean:
 	rm -rf aio*
