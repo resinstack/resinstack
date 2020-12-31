@@ -1,29 +1,32 @@
-BASE = components/kernel.yml components/sysctl.yml components/dhcp.yml components/metadata.yml components/emissary.yml components/acpi.yml
+BASE = components/kernel.yml components/sysctl.yml components/dhcp.yml components/metadata.yml components/acpi.yml
 GETTY = components/getty.yml
 PERSIST = components/persist-disk.yml
 SSHD = components/sshd.yml
 DOCKER = components/docker.yml
 
+EMISSARY = components/emissary/emissary.yml
+EMISSARY_FILES = $(EMISSARY) components/emissary/restart
+
 CDNS = components/coredns/coredns.yml
 CDNS_FILES = components/coredns/Corefile components/coredns/resolv.cluster
 
-CONSUL_SERVER = $(BASE) $(PERSIST) $(CDNS) components/consul/consul.yml components/consul/server.yml
-CONSUL_SERVER_FILES = $(CONSUL_SERVER) $(CDNS_FILES) components/consul/25-base.hcl components/consul/40-server.hcl
+CONSUL_SERVER = $(BASE) $(PERSIST) $(CDNS) $(EMISSARY) components/consul/consul.yml components/consul/server.yml
+CONSUL_SERVER_FILES = $(CONSUL_SERVER) $(CDNS_FILES) $(EMISSARY_FILES) components/consul/25-base.hcl components/consul/40-server.hcl
 
-CONSUL_CLIENT = $(CDNS) components/consul/consul.yml
-CONSUL_CLIENT_FILES = $(CONSUL_CLIENT) $(CDNS_FILES) components/consul/25-base.hcl
+CONSUL_CLIENT = $(CDNS) $(EMISSARY) components/consul/consul.yml
+CONSUL_CLIENT_FILES = $(CONSUL_CLIENT) $(CDNS_FILES) $(EMISSARY_FILES) components/consul/25-base.hcl
 
 DHCP_SERVER = components/kernel.yml components/syctl.yml components/dhcpd/dhcpd.yml
 DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf
 
-VAULT_SERVER = $(BASE) $(PERSIST) components/vault/vault.yml
-VAULT_SERVER_FILES = $(VAULT_SERVER) components/vault/40-server.hcl
+VAULT_SERVER = $(BASE) $(PERSIST) $(EMISSARY) components/vault/vault.yml
+VAULT_SERVER_FILES = $(VAULT_SERVER) $(EMISSARY_FILES) components/vault/40-server.hcl
 
-NOMAD_SERVER = $(BASE) $(PERSIST) $(DOCKER) components/nomad/nomad.yml components/nomad/server.yml
-NOMAD_SERVER_FILES = $(NOMAD_SERVER) components/nomad/25-base.hcl components/nomad/40-server.hcl
+NOMAD_SERVER = $(BASE) $(PERSIST) $(DOCKER) $(EMISSARY) components/nomad/nomad.yml components/nomad/server.yml
+NOMAD_SERVER_FILES = $(NOMAD_SERVER) $(EMISSARY_FILES) components/nomad/25-base.hcl components/nomad/40-server.hcl
 
-NOMAD_CLIENT = $(BASE) $(PERSIST) $(DOCKER) components/nomad/nomad.yml components/nomad/client.yml
-NOMAD_CLIENT_FILES = $(NOMAD_CLIENT) components/nomad/25-base.hcl components/nomad/40-client.hcl
+NOMAD_CLIENT = $(BASE) $(PERSIST) $(DOCKER) $(EMISSARY) components/nomad/nomad.yml components/nomad/client.yml
+NOMAD_CLIENT_FILES = $(NOMAD_CLIENT) $(EMISSARY_FILES) components/nomad/25-base.hcl components/nomad/40-client.hcl
 
 # Only enable if explicitly asked for, since it will present a root
 # shell on the console with no authentication.

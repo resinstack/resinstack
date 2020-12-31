@@ -1,7 +1,7 @@
 ---
 services:
   - name: emissary
-    image: resinstack/emissary:v0.1.0
+    image: ghcr.io/resinstack/emissary:v0.2.1
     capabilities:
       - CAP_SYS_ADMIN
     binds:
@@ -9,5 +9,12 @@ services:
       - /run:/run
       - /run/resolvconf/resolv.conf:/etc/resolv.conf
       - /usr/bin/service:/usr/bin/service
+      - /usr/bin/restart:/usr/bin/restart
+      - /usr/bin/ctr:/usr/bin/ctr
     env:
       - EMISSARY_TPL_DIR=/run/config/emissary/
+files:
+  - path: usr/bin/restart
+    source: components/emissary/restart
+    mode: "0755"
+    optional: false
