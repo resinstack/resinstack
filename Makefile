@@ -22,8 +22,8 @@ DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf
 VAULT_SERVER = $(BASE) $(PERSIST) $(EMISSARY) components/vault/vault.yml
 VAULT_SERVER_FILES = $(VAULT_SERVER) $(EMISSARY_FILES)
 
-NOMAD_SERVER = $(BASE) $(PERSIST) $(EMISSARY) components/nomad/nomad.yml components/nomad/server.yml
-NOMAD_SERVER_FILES = $(NOMAD_SERVER) $(EMISSARY_FILES) components/nomad/25-base.hcl components/nomad/40-server.hcl
+NOMAD_SERVER = $(BASE) $(PERSIST) $(EMISSARY) components/nomad/nomad.yml
+NOMAD_SERVER_FILES = $(NOMAD_SERVER) $(EMISSARY_FILES) components/nomad/25-base.hcl
 
 NOMAD_CLIENT = $(BASE) $(PERSIST) $(DOCKER) $(EMISSARY) components/nomad/nomad.yml components/nomad/client.yml
 NOMAD_CLIENT_FILES = $(NOMAD_CLIENT) $(EMISSARY_FILES) components/nomad/25-base.hcl components/nomad/40-client.hcl
