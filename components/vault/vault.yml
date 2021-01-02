@@ -7,14 +7,8 @@ services:
       - CAP_SETGID
       - CAP_IPC_LOCK
     binds:
-      - /etc/vault:/etc/vault
       - /var/run/config/vault:/var/run/config/vault
       - /etc/resolv.cluster:/etc/resolv.conf
     runtime:
       mkdir:
         - /var/run/config/vault
-files:
-  - path: etc/vault/40-server.hcl
-    source: components/vault/40-server.hcl
-    mode: "0644"
-    optional: false

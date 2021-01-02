@@ -20,7 +20,7 @@ DHCP_SERVER = components/kernel.yml components/syctl.yml components/dhcpd/dhcpd.
 DHCP_SERVER_FILES = $(DHCP_SERVER) components/dhcpd/dnsmasq.conf
 
 VAULT_SERVER = $(BASE) $(PERSIST) $(EMISSARY) components/vault/vault.yml
-VAULT_SERVER_FILES = $(VAULT_SERVER) $(EMISSARY_FILES) components/vault/40-server.hcl
+VAULT_SERVER_FILES = $(VAULT_SERVER) $(EMISSARY_FILES)
 
 NOMAD_SERVER = $(BASE) $(PERSIST) $(EMISSARY) components/nomad/nomad.yml components/nomad/server.yml
 NOMAD_SERVER_FILES = $(NOMAD_SERVER) $(EMISSARY_FILES) components/nomad/25-base.hcl components/nomad/40-server.hcl
