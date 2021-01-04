@@ -1,7 +1,7 @@
 services:
   - name: vault
     image: vault:1.6.0
-    command: ["/bin/vault", "server", "-config", "/etc/vault", "-config", "/var/run/config/vault"]
+    command: ["/bin/vault", "server", "-config", "/var/run/config/vault"]
     capabilities:
       - CAP_SETUID
       - CAP_SETGID
