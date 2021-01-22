@@ -11,7 +11,7 @@ services:
      - /etc/docker/daemon.json:/etc/docker/daemon.json
      - /etc/resolv.cluster:/etc/resolv.conf
      - /lib/modules:/lib/modules
-     - /var/persist:/var/persist
+     - /var/persist:/var/persist:rshared
      - /run:/run:shared
     rootfsPropagation: shared
     command: ["/usr/local/bin/docker-init", "/usr/local/bin/dockerd"]

@@ -11,8 +11,9 @@ services:
       - /etc/nomad:/etc/nomad
       - /etc/resolv.cluster:/etc/resolv.conf
       - /lib/modules:/lib/modules
-      - /var/persist:/var/persist
+      - /var/persist:/var/persist:rshared
       - /run:/run:shared
+    rootfsPropagation: shared
     runtime:
       mkdir:
         - /var/run/config/nomad
